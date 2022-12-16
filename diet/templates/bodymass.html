@@ -1,0 +1,143 @@
+{% extends 'basic.html' %}
+{% block body %}
+{% load static %}
+
+<style media="screen">
+		div{
+			width: 500px;
+			background-color: transparent;
+			text-shadow: rgb(255,255,255) 1px 0 20px;
+			padding: 20px;
+			border-radius: 10px;
+		}
+		label{
+			font-size: 20px;
+			font-weight: 700;
+		}
+		h2{
+			font-size: 30px;
+			font-weight: 600;
+		}
+		.text{
+            text-align: left;
+		}
+		#w, #h{
+			color: #222f3e;
+			text-align: left;
+			font-size: 20px;
+			font-weight: 450;
+			outline: none;
+			border: none;
+			margin-left: 15px;
+			background: none;
+			border-bottom: 2px solid #341f97;
+			width: 250px;
+		}
+		#m{
+			margin-left: 15px;
+		}
+		#a{
+			margin-left: 45px;
+			font-weight: 300;
+		}
+			#w:focus, #h:focus{
+				border-bottom: 2px solid #341f97;
+				width: 250px;
+				transition: 0.5s;
+			}
+			#result{
+				color: #341f97;
+				margin-left: 60px;
+				font-size: 18px;
+				font-weight: 650;
+			}
+			#btn{
+				font-family: inherit;
+				margin-top: 10px;
+				border: none;
+				color: #fff;
+				background-image: linear-gradient(120deg,#ff6b6b, #5f27cd);
+				width: 210px;
+				padding: 10px;
+				border-radius: 20px;
+				outline: none;
+				cursor: pointer;
+			}
+			#btn:hover{
+				box-shadow: 1px 1px 10px #341f97;
+			}
+			#info{
+				font-size: 12px;
+				font-family: inherit;
+			}
+	</style>
+</head>
+
+<body>
+    <section class="banner1" style=" position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+	background-image: url({%static "/images/calc.png"%});
+    background-position: center;
+    padding: 130px 0 200px 475px;">
+        <div style="animation: fadein1 2s;">
+            <h1 class="fitness" style=" padding: 5px 0 10px 0;">Body Fat % Calculator</h1>
+			<div>
+				<label for="h" class="text">Height</label>
+                <input type="text" name="height" id="h" placeholder="Enter height (m)">
+			</div>
+			<div>
+                <label for="w" class="text">Weight</label>
+                <input type="text" name="weight" id="w" placeholder="Enter weight (kg)">
+			</div>
+			<div>
+			<label class="text">Gender</label>
+			<input type="radio" name="gender" id="m" value="m">Male</input>
+			<input type="radio" name="gender" id="f" value="f">Female</input>
+			</div>
+			<div>
+				<label class="text">Age</label>
+				<input style="width: 250px; font-size: 18px; font-weight: 450; background:transparent; border-bottom: 2px solid #000"
+				type="text" name="age" id="a" placeholder="Enter age">
+			</div>
+            <p id="result" ></p>
+            <button id="btn" onClick="BMI()">Calculate</button>
+			<button id="btn"><a href="/dietplanner" style="text-decoration:none; color:white;">Diet Planner</a></button>
+        </div>
+    </section>
+
+    <script>
+        function BMI(){
+		var weight=document.getElementById('w').value;
+		var height=document.getElementById('h').value;
+		var age=document.getElementById('a').value;
+		var bfp=0.0;
+		var bmi=parseInt(weight)/(parseFloat(height)*parseFloat(height));
+
+		if (document.getElementById('f').checked)
+		{
+			bfp = (1.20 * parseFloat(bmi)) + (0.23 * parseInt(age)) - 5.4;
+		}
+
+		if (document.getElementById('m').checked)
+		{
+			bfp = (1.20 * parseFloat(bmi)) + (0.23 * parseInt(age)) - 16.2;
+		}
+
+		document.getElementById("result").innerHTML="Your Body Fat Percentage is "+bfp.toFixed(2)+"%";;
+		}
+    </script>
+  
+    <!-- Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+	crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    window.addEventListener("scroll", function(){
+        var header = document.querySelector("header");
+        header.classList.toggle("sticky", window.scrollY > 0);
+    })
+    </script>
+
+{% endblock %}
